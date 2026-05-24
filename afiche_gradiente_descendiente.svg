@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#071029"/>
+      <stop offset="52%" stop-color="#101846"/>
+      <stop offset="100%" stop-color="#28124b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".35"/></filter>
+    <style>
+      .title{font-family:Inter,Arial,sans-serif;font-size:86px;font-weight:900;fill:#fff;letter-spacing:-3px}
+      .subtitle{font-family:Inter,Arial,sans-serif;font-size:34px;font-weight:650;fill:#cbd5e1}
+      .h{font-family:Inter,Arial,sans-serif;font-size:31px;font-weight:900;fill:#fff}
+      .p{font-family:Inter,Arial,sans-serif;font-size:25px;font-weight:500;fill:#dbeafe}
+      .small{font-family:Inter,Arial,sans-serif;font-size:24px;font-weight:700;fill:#061221}
+      .formula{font-family:Georgia,serif;font-size:42px;font-weight:700;fill:#061221}
+    </style>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg)"/>
+  <circle cx="150" cy="120" r="210" fill="#5eead4" opacity=".13"/>
+  <circle cx="920" cy="120" r="260" fill="#8b5cf6" opacity=".22"/>
+  <circle cx="760" cy="1200" r="300" fill="#38bdf8" opacity=".10"/>
+
+  <text x="70" y="135" class="title">Gradiente</text>
+  <text x="70" y="226" class="title">descendiente</text>
+  <text x="74" y="286" class="subtitle">El método que enseña a una IA a equivocarse menos</text>
+
+  <g transform="translate(115,375)" filter="url(#shadow)">
+    <path d="M0,330 C120,160 220,250 330,120 C430,0 520,70 640,210 C720,305 790,335 850,330" fill="none" stroke="#38bdf8" stroke-width="18" stroke-linecap="round" opacity=".55"/>
+    <path d="M0,330 C120,160 220,250 330,120 C430,0 520,70 640,210 C720,305 790,335 850,330" fill="none" stroke="url(#accent)" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="330" cy="120" r="16" fill="#fbbf24"/>
+    <circle cx="640" cy="210" r="18" fill="#5eead4"/>
+    <path d="M520,135 C560,150 595,175 624,198" fill="none" stroke="#fbbf24" stroke-width="9" stroke-linecap="round"/>
+    <path d="M624,198 l-45,-4 l28,-35" fill="none" stroke="#fbbf24" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="560" y="92" class="p" fill="#ffffff">bajar el error</text>
+  </g>
+
+  <g transform="translate(70,760)">
+    <rect x="0" y="0" width="450" height="168" rx="30" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.18)"/>
+    <text x="34" y="53" class="h">¿Qué hace?</text>
+    <text x="34" y="95" class="p">Minimiza el error ajustando</text>
+    <text x="34" y="128" class="p">parámetros paso a paso.</text>
+
+    <rect x="490" y="0" width="450" height="168" rx="30" fill="#5eead4"/>
+    <text x="524" y="53" class="small">Fórmula clave</text>
+    <text x="524" y="106" class="formula" font-size="34">theta(t+1) = theta(t)</text><text x="524" y="150" class="formula" font-size="34">- alpha · grad J</text>
+
+    <rect x="0" y="198" width="450" height="178" rx="30" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.18)"/>
+    <text x="34" y="253" class="h">Analogía</text>
+    <text x="34" y="297" class="p">Como bajar una montaña</text>
+    <text x="34" y="330" class="p">siguiendo la pendiente.</text>
+
+    <rect x="490" y="198" width="450" height="178" rx="30" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.18)"/>
+    <text x="524" y="253" class="h">Aplicaciones</text>
+    <text x="524" y="297" class="p">Regresión, redes neuronales,</text>
+    <text x="524" y="330" class="p">visión artificial y clasificación.</text>
+  </g>
+
+  <rect x="70" y="1210" width="940" height="74" rx="26" fill="url(#accent)"/>
+  <text x="540" y="1257" text-anchor="middle" class="small">Inteligencia Artificial · 20/05/2026</text>
+</svg>

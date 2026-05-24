@@ -1,0 +1,25 @@
+Diseña un afiche académico y moderno en español sobre el tema "Gradiente descendiente aplicado a la Inteligencia Artificial".
+
+Formato vertical tipo póster, estilo tecnológico, fondo oscuro azul/morado, detalles en verde neón y celeste. Incluir una curva 3D o una montaña de error con una flecha descendente hacia el punto mínimo. El diseño debe ser limpio, llamativo y fácil de leer.
+
+Texto principal:
+"Gradiente descendiente"
+Subtítulo:
+"El método que enseña a una IA a equivocarse menos"
+
+Secciones pequeñas:
+1. ¿Qué hace?
+Minimiza el error de un modelo ajustando sus parámetros paso a paso.
+
+2. Fórmula clave:
+θ(t+1) = θ(t) − α∇J(θ)
+
+3. Analogía:
+Como bajar una montaña siguiendo la pendiente más inclinada hacia abajo.
+
+4. Aplicaciones:
+Regresión, redes neuronales, visión artificial, clasificación y recomendadores.
+
+Agregar al final:
+"Inteligencia Artificial – 20/05/2026"
+Usar íconos de IA, gráfico de línea, red neuronal, flechas y optimización. Priorizar estética visual sobre exceso de texto.

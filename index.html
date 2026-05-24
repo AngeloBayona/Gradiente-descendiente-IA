@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gradiente Descendiente | Inteligencia Artificial</title>
+  <meta name="description" content="Página educativa sobre el gradiente descendiente: concepto, fórmula, explicación didáctica, ejemplos, afiche y mapa mental." />
+  <style>
+    :root{
+      --bg:#080b1a;
+      --card:#11172e;
+      --card2:#161f3f;
+      --txt:#f5f7ff;
+      --muted:#b7c1df;
+      --accent:#5eead4;
+      --accent2:#8b5cf6;
+      --accent3:#38bdf8;
+      --warning:#fbbf24;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 18px 45px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(94,234,212,.18), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(139,92,246,.22), transparent 30%),
+        radial-gradient(circle at 50% 95%, rgba(56,189,248,.12), transparent 30%),
+        var(--bg);
+      color:var(--txt);
+      line-height:1.6;
+    }
+    a{color:var(--accent)}
+    .wrap{width:min(1160px,92vw); margin:auto}
+    header{
+      position:sticky; top:0; z-index:20;
+      background:rgba(8,11,26,.78);
+      backdrop-filter: blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:20px; padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
+    .brand span{
+      width:34px; height:34px; display:grid; place-items:center;
+      border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#061221; font-weight:950;
+    }
+    .links{display:flex; flex-wrap:wrap; gap:10px}
+    .links a{
+      color:var(--muted); text-decoration:none; font-size:.92rem; padding:7px 10px;
+      border-radius:999px;
+    }
+    .links a:hover{background:rgba(255,255,255,.08); color:var(--txt)}
+    .hero{padding:72px 0 44px; display:grid; grid-template-columns:1.08fr .92fr; gap:34px; align-items:center}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line);
+      border-radius:999px; color:var(--muted); background:rgba(255,255,255,.05); font-size:.95rem;
+    }
+    h1{font-size:clamp(2.4rem,6vw,5.4rem); line-height:.96; margin:18px 0; letter-spacing:-2.2px}
+    h2{font-size:clamp(1.7rem,3vw,2.7rem); line-height:1.08; margin:0 0 16px; letter-spacing:-.8px}
+    h3{margin:0 0 10px; font-size:1.25rem}
+    p{margin:0 0 14px}
+    .lead{font-size:1.18rem; color:var(--muted); max-width:65ch}
+    .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:9px;
+      padding:13px 18px; border-radius:14px; text-decoration:none; font-weight:800;
+      border:1px solid var(--line); color:var(--txt); background:rgba(255,255,255,.06);
+      transition:.2s transform, .2s background;
+    }
+    .btn:hover{transform:translateY(-2px); background:rgba(255,255,255,.11)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent3)); color:#061221; border:none}
+    .panel{
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));
+      border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:24px;
+    }
+    .formula{
+      font-size:clamp(1.28rem,3vw,2rem); text-align:center; padding:20px;
+      border-radius:20px; border:1px solid var(--line); background:rgba(0,0,0,.18);
+      overflow:auto;
+    }
+    .small{font-size:.92rem; color:var(--muted)}
+    section{padding:44px 0}
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .card{
+      background:linear-gradient(180deg,var(--card),rgba(17,23,46,.76));
+      border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:var(--shadow);
+    }
+    .card strong{color:#fff}
+    .num{
+      width:38px; height:38px; border-radius:14px; display:grid; place-items:center; margin-bottom:14px;
+      background:rgba(94,234,212,.16); color:var(--accent); border:1px solid rgba(94,234,212,.25);
+      font-weight:900;
+    }
+    ul{margin:10px 0 0; padding-left:20px}
+    li{margin:7px 0}
+    .timeline{position:relative}
+    .timeline::before{content:""; position:absolute; top:0; bottom:0; left:18px; width:2px; background:linear-gradient(var(--accent),var(--accent2))}
+    .step{position:relative; padding-left:56px; margin-bottom:18px}
+    .step::before{content:""; position:absolute; left:8px; top:3px; width:22px; height:22px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 6px rgba(94,234,212,.12)}
+    .demo{display:grid; grid-template-columns:1fr .85fr; gap:20px; align-items:center}
+    canvas{width:100%; height:340px; border-radius:20px; background:#0b1024; border:1px solid var(--line)}
+    .controls{display:grid; gap:12px}
+    label{display:grid; gap:6px; color:var(--muted)}
+    input[type=range]{width:100%}
+    .pill{display:inline-flex; padding:6px 10px; border-radius:999px; background:rgba(94,234,212,.12); color:var(--accent); font-size:.85rem; font-weight:800}
+    .poster{
+      background:linear-gradient(135deg,#061221,#11172e 48%,#20164c);
+      border:1px solid var(--line); border-radius:28px; padding:26px; min-height:520px;
+      display:grid; gap:18px; align-content:start;
+    }
+    .poster h2{font-size:2.3rem}
+    .poster .big{font-size:4rem; line-height:.9; font-weight:950; letter-spacing:-2px}
+    .poster-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .mini{padding:14px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid var(--line)}
+    .mindmap{
+      display:grid; place-items:center; overflow:auto; padding:22px;
+      background:#fbfdff; color:#0f172a; border-radius:22px;
+    }
+    .mindmap svg{min-width:840px; max-width:100%}
+    .ref{font-size:.9rem; color:var(--muted)}
+    footer{padding:34px 0 56px; border-top:1px solid var(--line); color:var(--muted)}
+    code{
+      background:rgba(255,255,255,.09); padding:.18rem .38rem; border-radius:7px;
+      border:1px solid var(--line); color:#d7fbff;
+    }
+    pre{
+      white-space:pre-wrap; overflow:auto; background:#050816; border:1px solid var(--line);
+      padding:18px; border-radius:18px; color:#d7fbff;
+    }
+    @media (max-width:850px){
+      .hero,.demo,.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}
+      .links{display:none}
+      .poster-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <div class="brand"><span>∇</span> Gradiente Descendiente</div>
+        <div class="links">
+          <a href="#descripcion">Descripción</a>
+          <a href="#explicacion">Explicación</a>
+          <a href="#demo">Demo</a>
+          <a href="#ejemplos">Ejemplos</a>
+          <a href="#afiche">Afiche</a>
+          <a href="#mapa">Mapa mental</a>
+          <a href="#guion">Sustentación</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="badge">Inteligencia Artificial · 20/05/2026</div>
+        <h1>Gradiente descendiente</h1>
+        <p class="lead">
+          El algoritmo que permite a muchos modelos de IA aprender ajustando sus parámetros poco a poco,
+          como si bajaran una montaña hasta encontrar el punto de menor error.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#demo">Ver demostración</a>
+          <a class="btn" href="#guion">Guion de 10 minutos</a>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="small">Idea central</p>
+        <div class="formula">θ<sub>t+1</sub> = θ<sub>t</sub> − α ∇J(θ<sub>t</sub>)</div>
+        <p class="small" style="margin-top:14px">
+          Donde <strong>θ</strong> son los parámetros del modelo, <strong>J</strong> es la función de costo,
+          <strong>∇J</strong> indica hacia dónde aumenta más el error y <strong>α</strong> es la tasa de aprendizaje.
+        </p>
+      </div>
+    </section>
+
+    <section id="descripcion">
+      <div class="grid cols-2">
+        <div class="card">
+          <span class="pill">Nombre</span>
+          <h2>Gradiente descendiente aplicado a la Inteligencia Artificial</h2>
+          <p>
+            Es una técnica de optimización usada para minimizar una función de error o pérdida. En IA,
+            sirve para que un modelo ajuste sus pesos y mejore sus predicciones durante el entrenamiento.
+          </p>
+        </div>
+        <div class="card">
+          <span class="pill">Descripción</span>
+          <h2>¿Por qué es importante?</h2>
+          <p>
+            Muchos modelos no "aprenden" memorizando reglas exactas, sino corrigiendo errores.
+            El gradiente descendiente calcula cómo cambiar los parámetros para que el error disminuya
+            en cada iteración.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="explicacion">
+      <h2>Explicación didáctica</h2>
+      <div class="grid cols-3">
+        <div class="card"><div class="num">1</div><h3>Tenemos un error</h3><p>El modelo predice algo y se compara con el valor real. Esa diferencia se resume en una función de costo.</p></div>
+        <div class="card"><div class="num">2</div><h3>Calculamos la pendiente</h3><p>El gradiente muestra hacia dónde el error crece más rápido. Para disminuirlo, avanzamos en la dirección contraria.</p></div>
+        <div class="card"><div class="num">3</div><h3>Ajustamos parámetros</h3><p>Se actualizan los pesos con un pequeño paso. El tamaño del paso se controla con la tasa de aprendizaje.</p></div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Analogía de la montaña</h3>
+        <p>
+          Imagina que estás en una montaña con neblina y quieres llegar al valle más bajo.
+          Como no ves todo el paisaje, revisas la inclinación del suelo bajo tus pies y das un paso hacia abajo.
+          Repites el proceso muchas veces. Eso hace el algoritmo: no conoce desde el inicio la mejor solución,
+          pero va corrigiendo su ruta según la pendiente del error.
+        </p>
+      </div>
+    </section>
+
+    <section id="demo">
+      <h2>Demostración interactiva</h2>
+      <div class="demo">
+        <canvas id="plot" width="900" height="520" aria-label="Simulación de descenso del gradiente"></canvas>
+        <div class="card controls">
+          <h3>Función de costo: J(x) = x² + 1</h3>
+          <label>Tasa de aprendizaje α
+            <input id="lr" type="range" min="0.01" max="1.05" step="0.01" value="0.18" />
+          </label>
+          <label>Punto inicial x
+            <input id="start" type="range" min="-5" max="5" step="0.1" value="4.5" />
+          </label>
+          <button class="btn primary" id="run" type="button">Reiniciar simulación</button>
+          <p id="status" class="small"></p>
+          <p class="small">
+            Si α es muy pequeño, el proceso avanza lento. Si α es demasiado grande, puede saltarse el mínimo
+            y no estabilizarse.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejemplos">
+      <h2>Ejemplos de aplicación</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>1. Regresión lineal</h3>
+          <p>Se ajusta una recta para predecir valores, por ejemplo estimar el precio de una vivienda según área, ubicación o características.</p>
+        </div>
+        <div class="card">
+          <h3>2. Redes neuronales</h3>
+          <p>Durante el entrenamiento, la red actualiza miles o millones de pesos para reducir la pérdida entre predicción y valor real.</p>
+        </div>
+        <div class="card">
+          <h3>3. Clasificación de imágenes</h3>
+          <p>El modelo corrige sus filtros internos para reconocer patrones visuales: bordes, texturas, formas y objetos.</p>
+        </div>
+        <div class="card">
+          <h3>4. Agrupamiento y métricas</h3>
+          <p>En aprendizaje de distancias, la optimización ayuda a ajustar métricas que mejoran métodos como kNN, k-means o agrupamientos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="afiche">
+      <h2>Afiche listo para copiar en Canva</h2>
+      <div class="poster">
+        <div class="big">Gradiente<br/>descendiente</div>
+        <p class="lead">El método que enseña a una IA a equivocarse menos.</p>
+        <div class="poster-grid">
+          <div class="mini"><strong>¿Qué hace?</strong><br/>Minimiza el error de un modelo ajustando sus parámetros paso a paso.</div>
+          <div class="mini"><strong>Fórmula clave</strong><br/>θ<sub>t+1</sub> = θ<sub>t</sub> − α∇J(θ<sub>t</sub>)</div>
+          <div class="mini"><strong>Analogía</strong><br/>Bajar una montaña siguiendo la pendiente más inclinada hacia abajo.</div>
+          <div class="mini"><strong>Usos</strong><br/>Regresión, redes neuronales, visión artificial, clasificación y recomendadores.</div>
+        </div>
+        <p class="small">Consejo visual: usa un fondo oscuro, una montaña/curva de error y una flecha descendente hacia el mínimo.</p>
+      </div>
+    </section>
+
+    <section id="mapa">
+      <h2>Mapa mental del concepto</h2>
+      <div class="mindmap">
+        <svg viewBox="0 0 980 560" role="img" aria-label="Mapa mental gradiente descendiente">
+          <defs>
+            <filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".18"/></filter>
+          </defs>
+          <rect width="980" height="560" rx="28" fill="#f8fafc"/>
+          <g font-family="Inter,Arial" font-size="18" text-anchor="middle">
+            <rect x="360" y="230" width="260" height="92" rx="26" fill="#0f172a" filter="url(#s)"/>
+            <text x="490" y="266" fill="#fff" font-weight="800" font-size="24">Gradiente</text>
+            <text x="490" y="294" fill="#fff" font-weight="800" font-size="24">descendiente</text>
+            <g stroke="#94a3b8" stroke-width="3" fill="none">
+              <path d="M360 276 C260 210 210 140 150 105"/>
+              <path d="M360 276 C250 275 210 275 130 275"/>
+              <path d="M360 276 C260 350 220 425 150 470"/>
+              <path d="M620 276 C720 210 765 140 835 105"/>
+              <path d="M620 276 C740 276 790 276 875 276"/>
+              <path d="M620 276 C735 350 780 425 845 470"/>
+            </g>
+            <g>
+              <rect x="42" y="66" width="216" height="78" rx="20" fill="#ccfbf1"/>
+              <text x="150" y="98" font-weight="800" fill="#0f172a">Objetivo</text>
+              <text x="150" y="123" fill="#334155">minimizar error</text>
+              <rect x="22" y="235" width="216" height="80" rx="20" fill="#dbeafe"/>
+              <text x="130" y="268" font-weight="800" fill="#0f172a">Elementos</text>
+              <text x="130" y="293" fill="#334155">costo, gradiente, α</text>
+              <rect x="42" y="430" width="216" height="80" rx="20" fill="#ede9fe"/>
+              <text x="150" y="462" font-weight="800" fill="#0f172a">Proceso</text>
+              <text x="150" y="488" fill="#334155">iterar y actualizar</text>
+              <rect x="727" y="66" width="216" height="78" rx="20" fill="#ffedd5"/>
+              <text x="835" y="98" font-weight="800" fill="#0f172a">Tipos</text>
+              <text x="835" y="123" fill="#334155">batch, SGD, mini-batch</text>
+              <rect x="747" y="235" width="256" height="80" rx="20" fill="#fef9c3"/>
+              <text x="875" y="268" font-weight="800" fill="#0f172a">Riesgos</text>
+              <text x="875" y="293" fill="#334155">pasos muy grandes/lentos</text>
+              <rect x="727" y="430" width="236" height="80" rx="20" fill="#dcfce7"/>
+              <text x="845" y="462" font-weight="800" fill="#0f172a">Aplicaciones</text>
+              <text x="845" y="488" fill="#334155">redes, regresión, visión</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="guion">
+      <h2>Sustentación de 10 minutos</h2>
+      <div class="card timeline">
+        <div class="step"><strong>0:00–1:00 · Introducción.</strong> Presentar el tema y explicar que el gradiente descendiente es una técnica de optimización fundamental en IA.</div>
+        <div class="step"><strong>1:00–2:30 · Problema.</strong> Todo modelo comete errores; entrenar significa reducir esos errores mediante una función de costo.</div>
+        <div class="step"><strong>2:30–4:00 · Analogía.</strong> Explicar la montaña con neblina: se baja siguiendo la pendiente local, paso a paso.</div>
+        <div class="step"><strong>4:00–5:30 · Fórmula.</strong> Explicar parámetros, gradiente y tasa de aprendizaje α.</div>
+        <div class="step"><strong>5:30–7:00 · Tipos.</strong> Comparar batch, estocástico y mini-batch.</div>
+        <div class="step"><strong>7:00–8:30 · Aplicaciones.</strong> Regresión, redes neuronales, clasificación de imágenes y aprendizaje de métricas.</div>
+        <div class="step"><strong>8:30–9:30 · Ventajas y límites.</strong> Es simple y potente, pero depende de α y puede quedarse en mínimos locales.</div>
+        <div class="step"><strong>9:30–10:00 · Cierre.</strong> Concluir que es una de las bases prácticas para que los modelos aprendan de sus errores.</div>
+      </div>
+    </section>
+
+    <section id="referencias">
+      <h2>Referencias base</h2>
+      <p class="ref">
+        Rodríguez, L. (2016). Método del gradiente de máximo descenso. Matemática: Una publicación del ICM–ESPOL, 14(1).
+      </p>
+      <p class="ref">
+        Pérez Verona, I. C., & Arco García, L. (2016). Una revisión sobre aprendizaje no supervisado de métricas de distancia.
+        Revista Cubana de Ciencias Informáticas, 10(4), 43–67.
+      </p>
+      <p class="ref">
+        GitHub Docs. GitHub Pages: servicio para publicar sitios estáticos desde repositorios.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Página educativa realizada para sustentación de Inteligencia Artificial · Tema: Gradiente descendiente.
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("plot");
+    const ctx = canvas.getContext("2d");
+    const lr = document.getElementById("lr");
+    const start = document.getElementById("start");
+    const status = document.getElementById("status");
+    const run = document.getElementById("run");
+
+    let x = parseFloat(start.value);
+    let points = [];
+    let t = 0;
+
+    function J(v){ return v*v + 1; }
+    function grad(v){ return 2*v; }
+    function mapX(v){ return 70 + (v + 5) / 10 * (canvas.width - 140); }
+    function mapY(v){ return canvas.height - 55 - (J(v) / 28) * (canvas.height - 115); }
+
+    function reset(){
+      x = parseFloat(start.value);
+      points = [{x:x, y:J(x)}];
+      t = 0;
+      draw();
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "#0b1024";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      ctx.strokeStyle = "rgba(255,255,255,.18)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(70,25); ctx.lineTo(70,canvas.height-55); ctx.lineTo(canvas.width-45,canvas.height-55);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,255,255,.7)";
+      ctx.font = "18px Inter, Arial";
+      ctx.fillText("J(x)", 28, 38);
+      ctx.fillText("x", canvas.width-36, canvas.height-25);
+
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for(let px=-5; px<=5.001; px+=0.04){
+        const sx = mapX(px), sy = mapY(px);
+        if(px === -5) ctx.moveTo(sx,sy); else ctx.lineTo(sx,sy);
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = "#5eead4";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      points.forEach((p,i)=>{
+        const sx = mapX(p.x), sy = mapY(p.x);
+        if(i===0) ctx.moveTo(sx,sy); else ctx.lineTo(sx,sy);
+      });
+      ctx.stroke();
+
+      points.forEach((p,i)=>{
+        ctx.beginPath();
+        ctx.arc(mapX(p.x), mapY(p.x), i===points.length-1 ? 9 : 5, 0, Math.PI*2);
+        ctx.fillStyle = i===points.length-1 ? "#fbbf24" : "#5eead4";
+        ctx.fill();
+      });
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "20px Inter, Arial";
+      ctx.fillText("Mínimo aproximado", mapX(0)-80, mapY(0)+38);
+
+      status.innerHTML = `Iteración: <strong>${t}</strong> · x actual: <strong>${x.toFixed(4)}</strong> · J(x): <strong>${J(x).toFixed(4)}</strong> · α: <strong>${parseFloat(lr.value).toFixed(2)}</strong>`;
+    }
+
+    function step(){
+      const alpha = parseFloat(lr.value);
+      x = x - alpha * grad(x);
+      points.push({x:x, y:J(x)});
+      if(points.length > 28) points.shift();
+      t++;
+      draw();
+      if(t < 22 && Math.abs(x) < 100) requestAnimationFrame(()=>setTimeout(step,220));
+    }
+
+    run.addEventListener("click", ()=>{ reset(); step(); });
+    lr.addEventListener("input", reset);
+    start.addEventListener("input", reset);
+    reset();
+    setTimeout(step,600);
+  </script>
+</body>
+</html>
