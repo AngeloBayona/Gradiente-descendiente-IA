@@ -554,8 +554,8 @@
           <h2>¿Por qué es importante?</h2>
 
           <p>
-            Muchos modelos de aprendizaje automático no nacen sabiendo. Aprenden a partir de ejemplos.
-            El gradiente descendiente permite ajustar sus pesos, coeficientes o parámetros para mejorar
+            Muchos modelos de aprendizaje automático utilizan el
+            gradiente descendiente para ajustar sus pesos, coeficientes o parámetros para mejorar
             las predicciones en cada iteración.
           </p>
         </div>
@@ -640,7 +640,7 @@
       </div>
 
       <div class="card" style="margin-top: 18px;">
-        <h3>Fórmula de actualización</h3>
+        <h3>Fórmula</h3>
 
         <div class="formula">
           <div class="formula-inner">
@@ -659,7 +659,7 @@
         </div>
 
         <p class="small" style="margin-top: 12px;">
-          Y usando la notación de peso <strong>w</strong>, como aparece en las imágenes:
+          ó:
         </p>
 
         <div class="formula">
@@ -671,10 +671,10 @@
     </section>
 
     <section id="graficas">
-      <h2>Lectura de las gráficas del gradiente descendiente</h2>
+      <h2>Gráficas</h2>
 
       <p class="lead">
-        Estas imágenes muestran de forma visual cómo el modelo reduce su error mediante
+      Las siguientes gráficas muestran de forma visual cómo el modelo reduce su error mediante
         actualizaciones sucesivas. En el eje horizontal aparece <strong>w</strong>, que representa
         el peso o parámetro del modelo, y en el eje vertical aparece <strong>e</strong>, que representa
         el error.
@@ -716,13 +716,7 @@
       </div>
 
       <div class="highlight">
-        <h3>¿Qué significa la fórmula de las imágenes?</h3>
-
-        <div class="formula">
-          <div class="formula-inner">
-            w ← w − α · Gradiente
-          </div>
-        </div>
+        <h3>¿Qué significa?</h3>
 
         <p style="margin-top: 14px;">
           La fórmula indica que el peso actual <strong>w</strong> se actualiza restando el producto entre
@@ -737,16 +731,11 @@
           demasiado pequeño, el aprendizaje será muy lento.
         </p>
 
-        <p>
-          En Inteligencia Artificial, esta curva puede representar la función de pérdida de un modelo. Cada punto
-          numerado representa un ajuste de los parámetros durante el entrenamiento. Por eso, el gradiente descendiente
-          es una herramienta fundamental para que los modelos aprendan de sus errores.
-        </p>
       </div>
     </section>
 
     <section id="demo">
-      <h2>Gráfica interactiva: bajando hacia el mínimo</h2>
+      <h2>Gráfica interactiva</h2>
 
       <div class="demo">
         <canvas id="plot" width="900" height="520" aria-label="Simulación de descenso del gradiente"></canvas>
